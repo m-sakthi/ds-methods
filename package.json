@@ -1,0 +1,14 @@
+{
+  "name": "methodimplementations",
+  "version": "1.0.0",
+  "description": "Just a library to learn built-in method implementations",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Sakthivel M",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^28.1.1"
+  }
+}
