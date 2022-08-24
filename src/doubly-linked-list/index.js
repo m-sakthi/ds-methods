@@ -99,11 +99,4 @@ DoublyLinkedList.prototype.toArray = function() {
   return arr;
 }
 
-// Prints the linked list in array format for better visualisation.
-// 
-DoublyLinkedList.prototype.print = function() {
-  console.log(this.toArray());
-}
-
-
 module.exports = DoublyLinkedList;

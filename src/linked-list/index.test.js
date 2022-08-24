@@ -180,5 +180,13 @@ describe('LinkedList', () => {
 
       expect(reversedList.toArray()).toEqual([4, 3, 2, 1]);
     });
+
+    it('should return the head if the list has only one node', () => {
+      const linkedList = new LinkedList(1);
+
+      const reversedList = linkedList.reverse();
+
+      expect(reversedList.toArray()).toEqual([1]);
+    });
   });
 });

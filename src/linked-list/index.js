@@ -110,11 +110,4 @@ LinkedList.prototype.toArray = function() {
   return arr;
 }
 
-// Prints the linked list in array format for better visualisation.
-//
-LinkedList.prototype.print = function() {
-  console.log(this.toArray());
-}
-
-
 module.exports = LinkedList;

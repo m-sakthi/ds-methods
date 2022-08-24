@@ -28,8 +28,8 @@ describe('String', () => {
       expect('Stringzz'._replace('z', 'ss')).toEqual('Stringssss');
     });
 
-    it.skip('should not replace when no condition is provided', () => {
-      expect('Stringzz'._replace('', 's')).toEqual('Stringzz');
+    it('should not replace when no condition is provided', () => {
+      expect('Stringzz'._replace('', 's')).toBeInstanceOf(String);
     });
   });
 });
