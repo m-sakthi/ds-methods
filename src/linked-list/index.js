@@ -66,6 +66,24 @@ LinkedList.prototype.remove = function(position) {
   return this;
 }
 
+LinkedList.prototype.reverse = function() {
+  if (!this.head.next) return this;
+
+  let first = this.head;
+  let second = first.next;
+  this.tail = this.head;
+  while(second) {
+    let temp = second.next;
+    second.next = first;
+    first = second;
+    second = temp;
+  }
+  this.head.next = null;
+  this.head = first;
+
+  return this;
+}
+
 // Finds the list item for a given position
 // 
 LinkedList.prototype.findNode = function(position) {
@@ -79,9 +97,9 @@ LinkedList.prototype.findNode = function(position) {
   return pointer;
 }
 
-// Prints the linked list in array format for better visualisation.
+// Converts the linked list to an array
 // 
-LinkedList.prototype.print = function() {
+LinkedList.prototype.toArray = function() {
   const arr = [];
   let currentNode = this.head;
   while(currentNode) {
@@ -89,7 +107,13 @@ LinkedList.prototype.print = function() {
     currentNode = currentNode.next;
   }
 
-  console.log(arr);
+  return arr;
+}
+
+// Prints the linked list in array format for better visualisation.
+//
+LinkedList.prototype.print = function() {
+  console.log(this.toArray());
 }
 
 

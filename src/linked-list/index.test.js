@@ -161,4 +161,24 @@ describe('LinkedList', () => {
       expect(received4).toBeNull();
     });
   });
+
+  describe('toArray', () => {
+    it('should return an array of linked list node values', () => {
+      const linkedList = new LinkedList(1);
+      linkedList.append(2).append(3).append(4);
+
+      expect(linkedList.toArray()).toEqual([1, 2, 3, 4]);
+    });
+  });
+
+  describe('reverse', () => {
+    it('should return the reversed list', () => {
+      const linkedList = new LinkedList(1);
+      linkedList.append(2).append(3).append(4);
+
+      const reversedList = linkedList.reverse();
+
+      expect(reversedList.toArray()).toEqual([4, 3, 2, 1]);
+    });
+  });
 });
