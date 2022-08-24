@@ -1,0 +1,178 @@
+const DoublyLinkedList = require('./index');
+
+describe('DoublyLinkedList', () => {
+  describe('constructor', () => {
+    it('should create a new DoublyLinkedList object', () => {
+      const expected = { value: 1, prev: null, next: null };
+      const linkedList = new DoublyLinkedList(1);
+  
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.head).toEqual(expected);
+      expect(linkedList.tail).toEqual(expected);
+      expect(linkedList.length).toEqual(1);
+    });
+  });
+
+  describe('append', () => {
+    it('should add value to the end of the linked list', () => {
+      const linkedList = new DoublyLinkedList(1);
+
+      expect(linkedList.length).toEqual(1);
+      linkedList.append(2);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.head.next.value).toEqual(2);
+      expect(linkedList.head.prev).toBeNull();
+      expect(linkedList.tail.next).toBeNull();
+      expect(linkedList.tail.prev.value).toEqual(1);
+      expect(linkedList.length).toEqual(2);
+    });
+  });
+
+  describe('prepend', () => {
+    it('should add value to the start of the linked list', () => {
+      const expectedTail = { value: 1, next: null };
+      const expected = { value: 2, next: { value: 1, next: null } };
+      const linkedList = new DoublyLinkedList(1);
+
+      expect(linkedList.length).toEqual(1);
+      linkedList.prepend(2);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.head.next.value).toEqual(1);
+      expect(linkedList.head.prev).toBeNull();
+      expect(linkedList.tail.next).toBeNull();
+      expect(linkedList.tail.prev.value).toEqual(2);
+      expect(linkedList.length).toEqual(2);
+    });
+  });
+
+  describe('insert', () => {
+    it('should add value at the given insert position', () => {
+      const linkedList = new DoublyLinkedList(3);
+      linkedList.append(2);
+      linkedList.append(1);
+      expect(linkedList.length).toEqual(3);
+
+      linkedList.insert(5, 2);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.length).toEqual(4);
+      // checking inserted node
+      const insertedNode = linkedList.findNode(2);
+      expect(insertedNode.value).toEqual(5);
+      expect(insertedNode.prev.value).toEqual(3);
+      expect(insertedNode.next.value).toEqual(2);
+      // checking previous node of the insterted node
+      const prevNode = linkedList.findNode(1);
+      expect(prevNode.value).toEqual(3);
+      expect(prevNode.next.value).toEqual(5);
+      // checking next node of the insterted node
+      const nextNode = linkedList.findNode(3);
+      expect(nextNode.value).toEqual(2);
+      expect(nextNode.prev.value).toEqual(5);
+    });
+
+    it('should add value to the end when given insert position is greater than length', () => {
+      const linkedList = new DoublyLinkedList(1);
+
+      expect(linkedList.length).toEqual(1);
+      linkedList.insert(2, 10);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.length).toEqual(2);
+
+      const insertedNode = linkedList.findNode(linkedList.length);
+      expect(insertedNode.value).toEqual(2);
+      expect(insertedNode.prev.value).toEqual(1);
+      expect(insertedNode.next).toBeNull();
+    });
+
+    it('should add value to the start when given insert position is lesser than 1', () => {
+      const linkedList = new DoublyLinkedList(1);
+
+      expect(linkedList.length).toEqual(1);
+      linkedList.insert(2, -1);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.length).toEqual(2);
+
+      const insertedNode = linkedList.findNode(1);
+      expect(insertedNode.value).toEqual(2);
+      expect(insertedNode.prev).toBeNull();
+      expect(insertedNode.next.value).toEqual(1);
+    });
+  });
+
+  describe('remove', () => {
+    it('should delete element from given position', () => {
+      const linkedList = new DoublyLinkedList(3);
+      linkedList.append(5).append(1);
+
+      expect(linkedList.length).toEqual(3);
+
+      linkedList.remove(2);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.length).toEqual(2);
+
+      const firstNode = linkedList.findNode(1);
+      expect(firstNode.next.value).toEqual(1);
+  
+      const secondNode = linkedList.findNode(2);
+      expect(secondNode.prev.value).toEqual(3);
+    });
+
+    it('should return the list with no change if given position is lesser than 1', () => {
+      const linkedList = new DoublyLinkedList(3);
+      linkedList.append(5).append(1);
+
+      const lengthBeforeRemove = 3
+      expect(linkedList.length).toEqual(lengthBeforeRemove);
+
+      linkedList.remove(0);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.length).toEqual(lengthBeforeRemove);
+    });
+
+    it('should return the list with no change if given position is greater than length', () => {
+      const linkedList = new DoublyLinkedList(3);
+      linkedList.append(5).append(1);
+
+      const lengthBeforeRemove = 3
+      expect(linkedList.length).toEqual(lengthBeforeRemove);
+
+      linkedList.remove(4);
+
+      expect(linkedList).toBeInstanceOf(DoublyLinkedList);
+      expect(linkedList.length).toEqual(lengthBeforeRemove);
+    });
+  });
+
+  describe('findNode', () => {
+    it('should return the found node at a given position', () => {
+      const linkedList = new DoublyLinkedList(3);
+      linkedList.append(5).append(1);
+
+      const received1 = linkedList.findNode(1);
+      const received2 = linkedList.findNode(2);
+      const received3 = linkedList.findNode(3);
+      const received4 = linkedList.findNode(4);
+
+      expect(received1.value).toEqual(3);
+      expect(received2.value).toEqual(5);
+      expect(received3.value).toEqual(1);
+      expect(received4).toBeNull();
+    });
+  });
+
+  describe('toArray', () => {
+    it('should return an array of linked list node values', () => {
+      const linkedList = new DoublyLinkedList(1);
+      linkedList.append(2).append(3).append(4);
+
+      expect(linkedList.toArray()).toEqual([1, 2, 3, 4]);
+    });
+  });
+});
