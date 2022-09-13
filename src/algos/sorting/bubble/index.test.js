@@ -15,13 +15,13 @@ describe("sort", () => {
 
   it("should sort the given array with 50 elements", () => {
     const sortedArray = Array(50).fill().map((_, i) => i);
-    const unsortedArray = sortedArray.sort(() => 0.5 - Math.random());
+    const unsortedArray = [...sortedArray].sort(() => 0.5 - Math.random());
     expect(sort(unsortedArray)).toEqual(sortedArray);
   });
 
   it("should sort the given array with 100 elements", () => {
     const sortedArray = Array(100).fill().map((_, i) => i);
-    const unsortedArray = sortedArray.sort(() => 0.5 - Math.random());
+    const unsortedArray = [...sortedArray].sort(() => 0.5 - Math.random());
     expect(sort(unsortedArray)).toEqual(sortedArray);
   });
 });
