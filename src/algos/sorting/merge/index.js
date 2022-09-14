@@ -1,4 +1,4 @@
-// Merge sort uses divide and conquere method where
+// Merge sort uses divide and conquer method where
 // we divide the list into two until it is down to single element
 // and smaller list is sorted and merged back.
 // 
